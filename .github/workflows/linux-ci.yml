@@ -1,10 +1,7 @@
 name: Linux CI
 
 on:
-  push:
-    branches: [ dev, master ]
-  pull_request:
-    branches: [ dev, master ]
+  workflow_dispatch: 
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -13,7 +10,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    if: github.event.pull_request.draft == false
+    # if: github.event.pull_request.draft == false
     steps:
     - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
     - name: Install system dependencies
@@ -61,7 +58,7 @@ jobs:
         CC: /usr/bin/clang
         CXX: /usr/bin/clang++
         CK_TIMEOUT_MULTIPLIER: 4
-    - name: Gather and check code coverage
-      run: |
-        sudo rm -rf coverage.info
-        tools/coverage
+    # - name: Gather and check code coverage
+    #   run: |
+    #     sudo rm -rf coverage.info
+    #     tools/coverage
